@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Account Simulator</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <p class="label">ACCOUNT BALANCE</p>
+        <h1 class="balance" id="balance">$0.00</h1>
+        <p class="account-number">ACC · 0042 · 9187 · XX</p>
+      </header>
+
+      <div class="card">
+        <div class="input-group">
+          <label for="amount">Enter Amount</label>
+          <input type="number" id="amount" placeholder="0.00" min="0" />
+        </div>
+
+        <div class="btn-group">
+          <button id="deposit-btn" class="btn deposit" onclick="deposit()">
+            + Deposit
+          </button>
+          <button id="withdraw-btn" class="btn withdraw" onclick="withdraw()">
+            − Withdraw
+          </button>
+        </div>
+
+        <p class="message" id="message"></p>
+
+        <button class="btn reset" id="reset-btn" onclick="resetAccount()">
+          ↺ Reset Account
+        </button>
+      </div>
+
+      <div class="history-section">
+        <h2>Transaction History</h2>
+        <table id="history-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Balance</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody id="history-body">
+            <tr id="empty-row">
+              <td colspan="4" class="empty">No transactions yet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
