@@ -34,3 +34,6 @@ desktop.ini
 # Env files
 .env
 *.env
+
+# ms word files
+*.docx
