@@ -14,6 +14,14 @@ def get_url():
     return f"file:///{path.replace(os.sep, '/')}"
 
 
+SCREENSHOTS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'screenshots'))
+
+
+def save(driver, name):
+    os.makedirs(SCREENSHOTS_DIR, exist_ok=True)
+    driver.save_screenshot(os.path.join(SCREENSHOTS_DIR, f"{name}.png"))
+
+
 class TestBankSimulator(unittest.TestCase):
 
     def setUp(self):
@@ -21,7 +29,8 @@ class TestBankSimulator(unittest.TestCase):
         # options.add_argument("--headless")  # Uncomment to run without browser window
         self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         self.driver.get(get_url())
-        time.sleep(1)  # Wait for the page to load
+        time.sleep(1)
+        save(self.driver, "01_app_home")
         self.wait = WebDriverWait(self.driver, 5)
 
     def tearDown(self):
@@ -50,6 +59,7 @@ class TestBankSimulator(unittest.TestCase):
     def test_01_valid_deposit(self):
         self.enter_amount(500)
         self.click("deposit-btn")
+        save(self.driver, "02_deposit_success")
         self.assertIn("500.00", self.get_balance())
         self.assertIn("deposited successfully", self.get_message())
 
@@ -59,6 +69,7 @@ class TestBankSimulator(unittest.TestCase):
         self.click("deposit-btn")
         self.enter_amount(200)
         self.click("withdraw-btn")
+        save(self.driver, "03_withdraw_success")
         self.assertIn("300.00", self.get_balance())
         self.assertIn("withdrawn successfully", self.get_message())
 
@@ -68,23 +79,27 @@ class TestBankSimulator(unittest.TestCase):
         self.click("deposit-btn")
         self.enter_amount(500)
         self.click("withdraw-btn")
+        save(self.driver, "04_overdraft_error")
         self.assertIn("Insufficient funds", self.get_message())
         self.assertIn("100.00", self.get_balance())
 
     # TC-04: Empty deposit input
     def test_04_empty_deposit_input(self):
         self.click("deposit-btn")
+        save(self.driver, "05_empty_deposit_error")
         self.assertIn("Please enter a valid amount", self.get_message())
 
     # TC-05: Empty withdraw input
     def test_05_empty_withdraw_input(self):
         self.click("withdraw-btn")
+        save(self.driver, "06_empty_withdraw_error")
         self.assertIn("Please enter a valid amount", self.get_message())
 
     # TC-06: Negative deposit
     def test_06_negative_deposit(self):
         self.enter_amount(-100)
         self.click("deposit-btn")
+        save(self.driver, "07_negative_deposit_error")
         self.assertIn("Amount must be positive", self.get_message())
 
     # TC-07: Transaction history updates
@@ -93,6 +108,7 @@ class TestBankSimulator(unittest.TestCase):
         self.click("deposit-btn")
         self.enter_amount(100)
         self.click("withdraw-btn")
+        save(self.driver, "08_transaction_history")
         rows = self.driver.find_elements(By.CSS_SELECTOR, "#history-body tr")
         self.assertGreaterEqual(len(rows), 2)
 
@@ -101,9 +117,10 @@ class TestBankSimulator(unittest.TestCase):
         self.enter_amount(500)
         self.click("deposit-btn")
         self.click("reset-btn")
+        save(self.driver, "09_reset_account")
         self.assertEqual(self.get_balance(), "$0.00")
         self.assertIn("reset", self.get_message())
 
-# main entry point for unittest
+
 if __name__ == "__main__":
     unittest.main()
