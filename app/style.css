@@ -1,0 +1,256 @@
+:root {
+  --bg: #0d0f14;
+  --card: #151821;
+  --border: #2a2f3d;
+  --accent-green: #00e676;
+  --accent-red: #ff4d6d;
+  --accent-blue: #4fc3f7;
+  --text: #e8eaf0;
+  --muted: #6b7385;
+  --font-display: "Space Mono", monospace;
+  --font-body: "Sora", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 2rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(
+    circle,
+    rgba(79, 195, 247, 0.08),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.balance {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  letter-spacing: -1px;
+  transition: color 0.3s ease;
+}
+
+.account-number {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  letter-spacing: 0.15em;
+}
+
+/* Card */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+input[type="number"] {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input[type="number"]:focus {
+  border-color: var(--accent-blue);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/* Buttons */
+.btn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.btn {
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition:
+    opacity 0.2s,
+    transform 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn.deposit {
+  background: var(--accent-green);
+  color: #000;
+}
+
+.btn.withdraw {
+  background: var(--accent-red);
+  color: #fff;
+}
+
+.btn.reset {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+.btn.reset:hover {
+  border-color: var(--muted);
+  color: var(--text);
+}
+
+/* Message */
+.message {
+  font-size: 0.85rem;
+  font-weight: 500;
+  min-height: 1.2rem;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.message.success {
+  color: var(--accent-green);
+}
+.message.error {
+  color: var(--accent-red);
+}
+
+/* History */
+.history-section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.75rem;
+}
+
+.history-section h2 {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+thead tr {
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  text-align: left;
+  padding: 0.5rem 0.5rem 0.75rem;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+td {
+  padding: 0.65rem 0.5rem;
+  border-bottom: 1px solid rgba(42, 47, 61, 0.5);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+}
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+  font-family: var(--font-body);
+  padding: 1.5rem 0;
+}
+
+td.deposit-type {
+  color: var(--accent-green);
+}
+td.withdraw-type {
+  color: var(--accent-red);
+}

@@ -1,4 +1,4 @@
-# 🏦 Bank Account Simulator
+# Bank Account Simulator
 
 A browser-based Bank Account Simulator with automated UI testing using Selenium WebDriver.
 
@@ -42,7 +42,7 @@ python -m pytest tests/ -v
 
 ---
 
-## 🌿 Branching Strategy
+## Branching Strategy
 
 ```
 main        ← production only, releases go here
